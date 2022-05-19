@@ -2,6 +2,9 @@ package ru.netology;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ManagerTest {
@@ -11,10 +14,9 @@ class ManagerTest {
 
     Ticket first = new Ticket(11, 10, "DME", "DYR", 2);
     Ticket second = new Ticket(590, 3, "VKO", "KZN", 1);
-    Ticket third = new Ticket(79, 5, "DME", "KVK", 3);
+    Ticket third = new Ticket(79, 10, "DME", "DYR", 2);
     Ticket fourth = new Ticket(588, 17, "ZIA", "ASF", 6);
     Ticket fifth = new Ticket(5589, 19, "SVO", "ARH", 2);
-
 
     @Test
     void shouldFindAll() {
@@ -34,7 +36,7 @@ class ManagerTest {
         manager.addItem(third);
         manager.addItem(fourth);
 
-        Ticket[] expected = {first};
+        Ticket[] expected = {first, third};
         assertArrayEquals(expected, manager.getAll("DME", "DYR"));
     }
 
@@ -60,4 +62,15 @@ class ManagerTest {
         Ticket[] expected = {};
         assertArrayEquals(expected, manager.getAll("VKO", "SVO"));
     }
+
+    @Test
+    void shouldSortByPrice() {
+
+        Ticket[] expected = new Ticket[]{second,first,fourth, fifth};
+        Ticket[] actual = new Ticket[]{first, second, fourth, fifth};
+        Arrays.sort(actual);
+        assertArrayEquals(expected, actual);
+    }
+
+
 }
